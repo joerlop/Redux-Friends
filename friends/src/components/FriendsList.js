@@ -52,7 +52,7 @@ class FriendsList extends React.Component {
         <div className="friends-container">
           {this.props.friends.length > 0 &&
             this.props.friends.map(friend => (
-              <Friend delete={this.delete} friend={friend} key={friend.id} />
+              <Friend updating={this.props.updating} delete={this.delete} friend={friend} key={friend.id} />
             ))}
         </div>
         <form className="form" onSubmit={this.add}>
@@ -89,7 +89,8 @@ class FriendsList extends React.Component {
 
 const mapStateToProps = state => ({
   friends: state.friendsReducer.friends,
-  isLoggingIn: state.friendsReducer.isLoggingIn
+  isLoggingIn: state.friendsReducer.isLoggingIn,
+  updating: state.friendsReducer.updatingFriend
 });
 
 export default connect(
