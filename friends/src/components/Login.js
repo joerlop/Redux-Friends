@@ -1,8 +1,8 @@
 import React from "react";
-import "./Login.css";
+import "./Login.scss";
 
 import { connect } from "react-redux";
-import { logIn } from "../actions";
+import { login } from "../actions";
 import { Route } from "react-router-dom";
 import Loader from 'react-loader-spinner';
 
@@ -19,34 +19,47 @@ class Login extends React.Component {
   }
 
   handleChanges = event => {
-      event.preventDefault();
+    event.preventDefault();
     this.setState({
       user: {
-          ...this.state.user,
+        ...this.state.user,
         [event.target.name]: event.target.value
       }
     });
   };
 
+  login = e => {
+    e.preventDefault();
+    this.props.login(this.state.user).then(() => {
+      this.props.history.push('/friendslist');
+    });
+  };
+
   render() {
     return (
-      <form className="form" onSubmit={(e) => this.props.logIn(e, this.state.user)}>
+      <form
+        className="form"
+        onSubmit={this.login}
+      >
         <input
           placeholder="Username"
           value={this.state.user.username}
-          onChange={(e) => this.handleChanges(e)}
+          onChange={e => this.handleChanges(e)}
           name="username"
         />
         <input
           placeholder="Password"
           value={this.state.user.password}
-          onChange={(e) => this.handleChanges(e)}
+          onChange={e => this.handleChanges(e)}
           name="password"
         />
-        <button onClick={(e) => this.props.logIn(e, this.state.user)}>Submit</button>
-        {this.props.isLoggingIn && (
-        <Loader type="Ball-Triangle" color="#00BFFF" height="90" width="60" />
-      )}
+        <button onClick={this.login}>
+        {this.props.isLoggingIn ? (
+              <Loader type="ThreeDots" color="#1f2a38" height="12" width="26" />
+            ) : (
+              'Log in'
+            )}
+        </button>
       </form>
     );
   }
@@ -54,12 +67,12 @@ class Login extends React.Component {
 
 const mapStateToProps = state => ({
   friends: state.friendsReducer.friends,
-  loggingIn: state.friendsReducer.isLoggingIn
+  isLoggingIn: state.friendsReducer.isLoggingIn
 });
 
 export default connect(
   mapStateToProps,
   {
-    logIn
+    login
   }
 )(Login);

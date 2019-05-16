@@ -1,0 +1,42 @@
+.friends-main-container {
+    margin: 50px;
+
+    .friends-container {
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+
+        .friend {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+
+            button {
+                border-radius: 5px;
+                border: 1px solid lightgray;
+                padding: 5px;
+                margin: 5px;
+            }
+        }
+    }
+
+    .form {
+
+        input {
+            border-radius: 5px;
+            border: 1px solid lightgray;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        button {
+            border-radius: 5px;
+            border: 1px solid lightgray;
+            padding: 5px;
+            margin: 5px;
+        }
+    }
+}
